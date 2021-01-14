@@ -73,7 +73,6 @@ self.addEventListener('fetch', ev => {
             if (resp) {
                 return resp;
             } else {
-                // console.log(resp);
                 return fetch(ev.request).then(fetchResp => {
                     return actualizaCacheDinamico(CACHE_DINAMIC, ev.request, fetchResp)
                 })
