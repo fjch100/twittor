@@ -28,9 +28,9 @@ const APP_INMUTABLE = [
     'js/libs/jquery.js'
 ];
 
-const CACHE_STATIC = 'static-v1';
+const CACHE_STATIC = 'static-v2';
 const CACHE_INMUTABLE = 'inmutable-v1';
-const CACHE_DINAMIC = 'dinamic-v1';
+const CACHE_DINAMIC = 'dinamic-v2';
 
 //EVENT INSTALL
 self.addEventListener('install', ev => {
@@ -55,6 +55,9 @@ self.addEventListener('activate', ev => {
             if (key !== CACHE_STATIC && key.includes('static')) {
                 return caches.delete(key);
             }
+            if (key !== CACHE_DINAMIC && key.includes('dinamic')) {
+                return caches.delete(key);
+            }
 
         });
 
@@ -70,7 +73,7 @@ self.addEventListener('fetch', ev => {
             if (resp) {
                 return resp;
             } else {
-                console.log(resp);
+                // console.log(resp);
                 return fetch(ev.request).then(fetchResp => {
                     return actualizaCacheDinamico(CACHE_DINAMIC, ev.request, fetchResp)
                 })
